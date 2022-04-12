@@ -1,0 +1,36 @@
+<div class="text-center" *ngIf="questions.length === 0 && !gameOver">
+    <div class="bg-warning text-white p-4 my-4 rounded" *ngFor="let player of players">
+        <h2 class="m-0">{{player.name}}</h2>
+    </div>
+    <button class="btn btn-primary mt-2" (click)="startGame()">Start Game!</button>
+</div>
+<div class="text-center" *ngIf="questions.length > 0 && !betweenQuestions">
+    <countdown class="text-primary display-3" #cd [config]="config" (event)="handleEvent($event)"></countdown>
+    <br />
+    <br />
+    <h2>{{questions[0].questionText}}</h2>
+    <br />
+    <input class="form-control" (keyup)="onCurrentAnswerChange($event)">
+    <br />
+    <br />
+    <button class="btn btn-primary" (click)="submitAnswer()">Submit!</button>
+</div>
+<div *ngIf="betweenQuestions" class="text-center">
+    <div *ngFor="let player of players">
+        <div *ngIf="player.currentAnswer" class="bg-warning text-white p-4 my-4 rounded text-center">
+            <h2 class="m-0">
+                {{player.name}} - {{player.currentAnswer}} - {{player.score}}
+            </h2>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="nextQuestion()">{{questions.length > 1 ? 'Next Question' : 'End Game'}}</button>
+</div>
+<div *ngIf="gameOver" class="text-center">
+    <div class="bg-warning text-white p-4 my-4 rounded text-center" *ngFor="let winner of winners; let i = index">
+        <h2 class="m-0">
+            {{i === 0 ? '1st' : i === 1 ? '2nd' : '3rd'}} - {{winner.name}} ({{winner.score}})
+        </h2>
+    </div>
+    <button class="btn btn-primary" (click)="home()">Home</button>
+</div>
+

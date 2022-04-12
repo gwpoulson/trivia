@@ -1,0 +1,10 @@
+<h1 class="text-center">Welcome to Trivia!</h1>
+<div class="p-2">
+    <label class="form-label">Name: </label>
+    <input class="form-control" (keyup)="onNameChange($event)">
+</div>
+<div class="p-2 text-center">
+    <button class="btn btn-primary my-2" (click)="joinGame()">Join!</button>
+    <br />
+    <button class="btn btn-danger my-2" (click)="clearUsers()">Clear Users</button>
+</div>
